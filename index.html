@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Class Vectors: Efficient, interpretable classifier editing via per-class latent shifts." />
+  <meta name="keywords" content="Class Vectors, Classifier Editing, Neural Collapse, Cross-Task Linearity, NeurIPS 2025" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Class Vectors for Classifier Editing — NeurIPS 2025</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Noto+Sans:wght@300;400;600;700&family=Castoro:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./static/css/bulma.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css" />
+  <link rel="icon" href="./static/images/favicon.ico" />
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    body { font-family: "Noto Sans", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    .badge { display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .6rem; border-radius:9999px; background:#111827; color:#fff; font-size:.85rem; font-weight:600; }
+    .hero-logo { max-height: 48px; margin: 6px 10px; }
+    .soft-card { border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,.06); }
+    .muted { color:#6b7280; }
+    pre { background:#0f172a; color:#e2e8f0; padding:20px 24px; border-radius:14px; overflow-x:auto; font-family:"Source Code Pro","Fira Code","JetBrains Mono",Menlo,monospace; font-size:0.92rem; line-height:1.45; }
+    pre code { white-space: pre; background:none; padding:0; color:inherit; }
+    .hero-main { margin: 34px auto 0; max-width: 600px; border-radius: 20px; overflow: hidden; box-shadow: 0 24px 50px rgba(15,23,42,.18); }
+    .card-figure { margin: 12px auto 14px; max-width: 560px; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 28px rgba(15,23,42,.08); }
+    .card-figure img { width: 100%; height: auto; display: block; }
+    .figure-grid { display: grid; gap: 12px; margin-bottom: 10px; }
+    .figure-grid .card-figure { margin-bottom: 0; }
+    .figure-grid.two { grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); }
+    .figure-grid.vertical { grid-template-columns: 1fr; }
+    .card-label { display:inline-flex; align-items:center; justify-content:center; margin-right:10px; width:30px; height:30px; border-radius:9999px; background:rgba(79,70,229,.12); color:#4338ca; font-weight:700; font-size:.95rem; }
+    .fig-caption { margin-top:8px; font-size:0.9rem; color:#64748b; text-align:center; }
+    .math-box { display:inline-flex; align-items:center; padding:4px 12px; border-radius:12px; font-family:"Fira Code","Source Code Pro","JetBrains Mono",Menlo,monospace; font-size:0.9rem; background:rgba(79,70,229,.08); color:#312e81; margin:6px 0; }
+    .math-inline { display:inline-flex; align-items:center; padding:2px 8px; border-radius:10px; font-family:"Fira Code","Source Code Pro","JetBrains Mono",Menlo,monospace; font-size:0.92rem; background:rgba(15,23,42,.08); color:#1e1b4b; margin:0 2px; }
+    .card-figure.wide { max-width: 800px; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://aidas.snu.ac.kr">
+        <span class="icon"><i class="fas fa-home"></i></span>
+        <span style="padding-left:6px;">AIDAS Lab</span>
+      </a>
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#key-findings">Key Findings</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#applications">Applications</a>
+      <a class="navbar-item" href="#bibtex">BibTeX</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1">Exploring and Leveraging <span style="background: linear-gradient(90deg,#06b6d4,#6366f1); -webkit-background-clip:text; background-clip:text; color:transparent;">Class Vectors</span> for Classifier Editing</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://kim-jake.github.io/">Jaeik Kim</a><sup>1</sup>,</span>
+            <span class="author-block"><a href="https://sites.google.com/view/jydo/home/">Jaeyoung Do</a><sup>1,2</sup></span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>AIDAS Laboratory, IPAI, Seoul National University</span>
+            <span class="author-block"><sup>2</sup>ECE, Seoul National University</span>
+          </div>
+          <div style="margin-top:14px;">
+            <span class="badge"><i class="fas fa-award"></i> NeurIPS 2025</span>
+          </div>
+
+          <!-- Links -->
+          <div class="column has-text-centered" style="margin-top: 18px;">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/AIDASLab/Class-Vector" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <figure class="image hero-main">
+            <img src="./static/images/main_temp-1.png" alt="Class vector editing overview." />
+            <figcaption class="fig-caption">Overview of Class Vector framework: capturing class-level representation shifts and applying them for unlearning, adaptation, and adversarial control.</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="hero is-light" id="abstract">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="column has-text-justified" style="padding:0;">
+            <p>
+              Image classifiers play a critical role in detecting diseases in medical imaging and identifying anomalies in manufacturing processes. However, their predefined behaviors after extensive training make post hoc model editing difficult, especially when it comes to forgetting specific classes or adapting to distribution shifts. Existing classifier editing methods either focus narrowly on correcting errors or incur extensive retraining costs, creating a bottleneck for flexible editing. Moreover, such editing has seen limited investigation in image classification. To overcome these challenges, we introduce Class Vectors, which capture class-specific representation adjustments during fine-tuning. Whereas task vectors encode task-level changes in weight space, Class Vectors disentangle each class’s adaptation in the latent space. We show that Class Vectors capture each class’s semantic shift and that classifier editing can be achieved either by steering latent features along these vectors or by mapping them into weight space to update the decision boundaries. We also demonstrate that the inherent linearity and orthogonality of Class Vectors support efficient, flexible, and high-level concept editing via simple class arithmetic. Finally, we validate their utility in applications such as unlearning, environmental adaptation, adversarial defense, and adversarial trigger optimization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Findings -->
+<section class="section" id="key-findings">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Key Findings</h2>
+    <div class="columns is-multiline is-variable is-3">
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">1</span>Class-level Latent Directions</h3>
+          <figure class="image card-figure">
+            <img src="./static/images/interpolation_comparison_all_models_norm-1.png" alt="Class-vector directions aligned across models." />
+          </figure>
+          <p>Class Vectors <em>disentangle</em> class-specific adaptations as <span class="math-inline">κ<sub>c</sub> = E[f(s;θ<sub>ft</sub>)] − E[f(s;θ<sub>pre</sub>)]</span>, enabling class-wise edits with simple arithmetic.</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">2</span>Linearity & Independence</h3>
+          <div class="figure-grid vertical">
+            <figure class="image card-figure">
+              <img src="./static/images/class_interpolation_overview-1.png" alt="Class interpolation overview showing smooth transitions." />
+              <figcaption class="fig-caption">Visualization of smooth inter-class interpolation, demonstrating linear trajectories between class centroids.</figcaption>
+            </figure>
+            <figure class="image card-figure wide">
+              <img src="./static/images/independence-1.png" alt="Measured class-vector independence across tasks." />
+              <figcaption class="fig-caption">Empirical confirmation of orthogonality among Class Vectors, validating inter-class independence predicted by Neural Collapse.</figcaption>
+            </figure>
+          </div>
+          <p>Inter-class interpolation is smooth; edits to a target class minimally affect others, supported by CTL and Neural Collapse structure.</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">3</span>Two Injection Modes</h3>
+          <p><strong>Latent steering</strong> enables training-free edits by steering class-relevant latent representations gated by cosine similarity, while <strong>weight mapping</strong> embeds such edits permanently into model weights via lightweight fine-tuning of the final block, preserving deterministic decision boundaries.</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">4</span>Efficient & Controllable</h3>
+          <p>Class Vectors require only a few reference samples (often &lt;5 per class) and support scalable control of edit strength via a single scalar λ, maintaining performance even in low-data regimes (≤30% of samples).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        We model <em>Class Vectors</em> as per-class latent shifts that summarize how features move from a pretrained encoder to a fine-tuned one. For a class <span class="math-inline">c</span>, the vector <span class="math-inline">κ<sub>c</sub></span> is computed from penultimate features averaged over a small reference set. These vectors allow two practical edit modes: <strong>latent steering</strong> at inference time, and <strong>weight mapping</strong> for persistent edits.
+      </p>
+      <ul>
+        <li><strong>Estimate class vectors.</strong> Collect a few labeled samples per class; extract penultimate features from both pretrained and fine-tuned encoders; take the mean difference to obtain <span class="math-inline">κ<sub>c</sub></span>.</li>
+        <li><strong>Latent steering (training-free).</strong> For an input feature <span class="math-inline">r</span>, apply a gated edit <span class="math-inline">r' = r + β·λ·(κ<sub>target</sub>)</span>, where <span class="math-inline">β</span> is a cosine-similarity gate to limit edits to relevant regions and <span class="math-inline">λ</span> controls strength.</li>
+        <li><strong>Weight mapping (persistent edit).</strong> Map the desired latent shift into small weight deltas in late blocks (e.g., classifier head or last encoder block) and update parameters to obtain an edited model.</li>
+      </ul>
+    </div>
+
+    <!-- Algorithm figure placeholder -->
+    <h3 class="title is-5" style="margin-top:28px;">Pseudo Algorithm</h3>
+    <figure class="image card-figure" style="max-width:720px;">
+      <img src="./static/images/algorithm.png" alt="Algorithm visualization detailing class vector estimation and edits." />
+      <figcaption class="fig-caption">Pseudo-algorithm illustrating two editing pipelines—(left) latent-space steering shifts features gated by cosine similarity, while (right) weight-space mapping embeds the same semantic shift through minimal encoder updates for persistent edits.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Applications -->
+<section class="section" id="applications">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Applications</h2>
+    <div class="columns is-multiline is-variable is-3">
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">1</span>Unlearning</h3>
+          <figure class="image card-figure wide">
+            <img src="./static/images/unlearning.png" alt="Unlearning comparison with baselines." />
+            <figcaption class="fig-caption">Comparison of class unlearning with baselines, including the mean and std accuracies.</figcaption>
+          </figure>
+          <p>Steer the model along the negative class vector to erase class-specific predictive rules without additional retraining, keeping the rest of the decision boundary intact.</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">2</span>Environment Adaptation</h3>
+          <figure class="image card-figure">
+            <img src="./static/images/snow-1.png" alt="Environment adaptation edits mitigating snow effects." />
+            <figcaption class="fig-caption">Class Vector–based environment adaptation subtracts snow responses from object embeddings to restore accurate predictions.</figcaption>
+          </figure>
+          <p>Subtract snow-specific activations while preserving object identity to regain robustness on Snowy ImageNet scenes.</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">3</span>Typography Defense</h3>
+          <figure class="image card-figure">
+            <img src="./static/images/typo-1.png" alt="Typography defense recovering clean predictions." />
+            <figcaption class="fig-caption">Typography defense removes spurious text features to prevent mislabeled signage attacks.</figcaption>
+          </figure>
+          <p>Subtract text-induced features injected by typography attacks so the classifier reverts to clean object cues (e.g., defeating "iPod" illusions).</p>
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box soft-card">
+          <h3 class="title is-5"><span class="card-label">4</span>Trigger Optimization</h3>
+          <figure class="image card-figure">
+            <img src="./static/images/gtsrb-1.png" alt="Trigger optimization on GTSRB controlling predictions." />
+            <figcaption class="fig-caption">Optimized trigger patches emulate latent shifts to redirect traffic sign predictions.</figcaption>
+          </figure>
+          <p>Optimize pixel-space trigger patches that approximate a target class shift, allowing controlled backdoor redirects without modifying network weights.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="citation" aria-label="Citation">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Citation</h2>
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="glass-card" style="padding:16px 18px; position:relative;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px;">
+            <button id="copyBibtex" class="button is-link is-light btn-xxs" aria-label="Copy BibTeX">Copy</button>
+          </div>
+<pre id="bibtexBlock" style="white-space:pre; overflow:auto; margin:0;"><code>
+  @inproceedings{
+    anonymous2025exploring,
+    title={Exploring and Leveraging Class Vectors for Classifier Editing},
+    author={Anonymous},
+    booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+    year={2025},
+    url={https://openreview.net/forum?id=jWrDyknUZ8}
+    }
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" style="padding-bottom: 40px;">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <a href="https://en.snu.ac.kr"><img src="./static/images/snu_logo.png" alt="Logo" style="max-height: 48px; margin: 6px 10px;" /></a>
+          <a href="https://aidas.snu.ac.kr"><img src="./static/images/aidaslab_logo.png" alt="Logo" style="max-height: 36px; margin: 10px 30px;" /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
