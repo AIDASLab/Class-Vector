@@ -2,3 +2,4 @@
 [NeurIPS 2025] Official implementation for "Exploring and Leveraging Class Vectors for Classifier Editing"
 
 [Project Page](https://aidaslab.github.io/Class-Vector/)
+[Paper](https://arxiv.org/abs/2510.11268)
