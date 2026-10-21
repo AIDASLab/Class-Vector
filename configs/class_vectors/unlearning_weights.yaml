@@ -1,0 +1,14 @@
+extends: vit_b32_example.yaml
+mode: weights
+data:
+  mapping:
+    split: test
+    fraction: 0.01
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.01
+    partition: remainder
+editing:
+  target_classes: [0, 1, 2, 3, 4]
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning_weights

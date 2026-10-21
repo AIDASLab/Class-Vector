@@ -1,0 +1,21 @@
+extends: ../vit_b32_example.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/GTSRB/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/head_GTSRB.pt
+data:
+  name: GTSRB
+  templates:
+    - 'a zoomed in photo of a "{}" traffic sign.'
+    - 'a centered photo of a "{}" traffic sign.'
+    - 'a close up photo of a "{}" traffic sign.'
+  mapping:
+    split: test
+    fraction: 0.01
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.01
+    partition: remainder
+editing:
+  learning_rate: 0.04
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_b32_gtsrb_latent

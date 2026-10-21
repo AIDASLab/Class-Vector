@@ -1,0 +1,49 @@
+task: unlearning
+mode: latent
+seed: 42
+model:
+  family: vision
+  name: resnet18
+  num_classes: 10
+  pretrained: imagenet
+  pretrained_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/resnet18_adamw_initial.pt
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/resnet18_adamw_mnist.pt
+  device: cpu
+data:
+  name: MNIST
+  root: ${CV_DATA_ROOT}
+  split: train
+  batch_size: 128
+  num_workers: 0
+  support:
+    samples_per_class: 500
+  mapping:
+    split: train
+    holdout_fraction: 0.1
+    holdout_partition: validation
+    holdout_seed: 42
+    sample_class: target
+    sample_count: 500
+    shuffle: true
+  evaluation:
+    split: test
+editing:
+  recipe: unlearning
+  target_class: 0
+  scale: -1.5
+  gated: false
+  reference_count: 1
+  epochs: 10
+  learning_rate: 0.00002
+  optimizer: adamw
+  weight_decay: 0.01
+  target_mode: per_input
+  train_mode: true
+  editable_parameter_patterns: [feature_extractor.*]
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/cnn_unlearning
+preparation:
+  epochs: 5
+  learning_rate: 0.0001
+  optimizer: adamw
+  weight_decay: 0.01
+  batch_size: 128

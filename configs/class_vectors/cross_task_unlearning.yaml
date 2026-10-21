@@ -1,0 +1,7 @@
+experiments:
+  - cross_task/vit_b16_mnist_to_svhn_latent.yaml
+  - cross_task/vit_b16_mnist_to_svhn_weights.yaml
+  - cross_task/vit_b32_mnist_to_svhn_latent.yaml
+  - cross_task/vit_b32_mnist_to_svhn_weights.yaml
+  - cross_task/vit_l14_mnist_to_svhn_latent.yaml
+  - cross_task/vit_l14_mnist_to_svhn_weights.yaml

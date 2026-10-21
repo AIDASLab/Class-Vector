@@ -1,0 +1,19 @@
+extends: ../vit_b16_example.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/MNIST/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/head_MNIST.pt
+data:
+  name: MNIST
+  templates:
+    - 'a photo of the number: "{}".'
+  mapping:
+    split: test
+    fraction: 0.01
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.01
+    partition: remainder
+editing:
+  learning_rate: 0.04
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_b16_mnist_latent

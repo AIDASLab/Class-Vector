@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+.env
+.env.*
+assets/
+data/
+checkpoints/
+outputs/
+results/
+*.pt
+*.pth
+*.ckpt
+*.safetensors

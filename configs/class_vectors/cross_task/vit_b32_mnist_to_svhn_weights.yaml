@@ -1,0 +1,8 @@
+extends: ../unlearning/vit_b32_mnist_weights.yaml
+vector_source: ../unlearning/vit_b32_mnist_latent.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/SVHN/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/head_SVHN.pt
+data:
+  name: SVHN
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/cross_task/vit_b32_mnist_to_svhn_weights

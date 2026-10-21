@@ -1,0 +1,8 @@
+extends: vit_l14_svhn_patch.yaml
+editing:
+  trigger_mode: blend
+  transparency: 0.0002
+  epochs: 15
+  learning_rate: 300
+  scale: 1.0
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/triggers/vit_l14_svhn_blend

@@ -1,0 +1,9 @@
+extends: bert_unlearning.yaml
+model:
+  finetuned_pretrained: haryoaw/bert-base-uncased-20-newsgroup
+data:
+  name: SetFit/20_newsgroups
+  text_field: text
+  support:
+    samples_per_class: 100
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/bert_20newsgroups

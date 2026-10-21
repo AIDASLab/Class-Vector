@@ -1,0 +1,26 @@
+extends: ../vit_b32_example.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/DTD/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/head_DTD.pt
+data:
+  name: DTD
+  templates:
+    - 'a photo of a {} texture.'
+    - 'a photo of a {} pattern.'
+    - 'a photo of a {} thing.'
+    - 'a photo of a {} object.'
+    - 'a photo of the {} texture.'
+    - 'a photo of the {} pattern.'
+    - 'a photo of the {} thing.'
+    - 'a photo of the {} object.'
+  mapping:
+    split: test
+    fraction: 0.1
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.1
+    partition: remainder
+editing:
+  learning_rate: 0.05
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_b32_dtd_latent

@@ -1,0 +1,19 @@
+experiments:
+  - triggers/vit_b16_gtsrb_patch.yaml
+  - triggers/vit_b16_gtsrb_blend.yaml
+  - triggers/vit_b16_svhn_patch.yaml
+  - triggers/vit_b16_svhn_blend.yaml
+  - triggers/vit_b16_resisc45_patch.yaml
+  - triggers/vit_b16_resisc45_blend.yaml
+  - triggers/vit_b32_gtsrb_patch.yaml
+  - triggers/vit_b32_gtsrb_blend.yaml
+  - triggers/vit_b32_svhn_patch.yaml
+  - triggers/vit_b32_svhn_blend.yaml
+  - triggers/vit_b32_resisc45_patch.yaml
+  - triggers/vit_b32_resisc45_blend.yaml
+  - triggers/vit_l14_gtsrb_patch.yaml
+  - triggers/vit_l14_gtsrb_blend.yaml
+  - triggers/vit_l14_svhn_patch.yaml
+  - triggers/vit_l14_svhn_blend.yaml
+  - triggers/vit_l14_resisc45_patch.yaml
+  - triggers/vit_l14_resisc45_blend.yaml

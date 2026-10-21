@@ -1,0 +1,48 @@
+task: unlearning
+mode: latent
+seed: 42
+model:
+  family: bert
+  name: bert-base-uncased
+  finetuned_pretrained: nateraw/bert-base-uncased-ag-news
+  local_files_only: false
+  cache_dir: ${HF_HOME}
+  device: cpu
+data:
+  backend: huggingface
+  name: ag_news
+  root: ${CV_DATA_ROOT}/huggingface
+  text_field: text
+  label_field: label
+  max_length: 128
+  batch_size: 128
+  num_workers: 0
+  support:
+    split: train
+    holdout_fraction: 0.1
+    holdout_partition: train
+    holdout_seed: 42
+    samples_per_class: 300
+  mapping:
+    split: train
+    holdout_partition: validation
+    sample_class: target
+    sample_count: 10
+    batch_size: 2
+    shuffle: false
+  evaluation:
+    split: test
+editing:
+  recipe: unlearning
+  target_class: 0
+  scale: -1.5
+  gated: false
+  reference_count: 1
+  epochs: 5
+  learning_rate: 0.00002
+  optimizer: adamw
+  weight_decay: 0.01
+  target_mode: per_input
+  train_mode: true
+  editable_parameter_patterns: [bert.*]
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/bert_unlearning

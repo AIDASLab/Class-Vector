@@ -1,0 +1,6 @@
+extends: cnn_unlearning.yaml
+model:
+  name: convnext_tiny
+  pretrained_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/convnext_tiny_adamw_initial.pt
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/convnext_tiny_adamw_mnist.pt
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/convnext_tiny_unlearning

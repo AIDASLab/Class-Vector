@@ -1,0 +1,13 @@
+experiments:
+  - cnn_unlearning.yaml
+  - cnn_resnet50.yaml
+  - cnn_convnext_tiny.yaml
+  - bert_unlearning.yaml
+  - bert_dbpedia.yaml
+  - bert_20newsgroups.yaml
+  - cnn_unlearning_weights.yaml
+  - cnn_resnet50_weights.yaml
+  - cnn_convnext_tiny_weights.yaml
+  - bert_unlearning_weights.yaml
+  - bert_dbpedia_weights.yaml
+  - bert_20newsgroups_weights.yaml

@@ -1,0 +1,6 @@
+extends: cnn_unlearning.yaml
+model:
+  name: resnet50
+  pretrained_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/resnet50_adamw_initial.pt
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/cnn/resnet50_adamw_mnist.pt
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/resnet50_unlearning

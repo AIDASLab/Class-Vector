@@ -1,0 +1,14 @@
+extends: ../trigger_optimization.yaml
+model:
+  name: ViT-B-32
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/GTSRB/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/head_GTSRB.pt
+data:
+  name: GTSRB
+  templates:
+    - 'a zoomed in photo of a "{}" traffic sign.'
+    - 'a centered photo of a "{}" traffic sign.'
+    - 'a close up photo of a "{}" traffic sign.'
+editing:
+  learning_rate: 5
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/triggers/vit_b32_gtsrb_patch

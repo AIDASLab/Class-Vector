@@ -1,0 +1,3 @@
+extends: bert_unlearning.yaml
+mode: weights
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/bert_unlearning_weights

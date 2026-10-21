@@ -1,0 +1,8 @@
+extends: trigger_optimization.yaml
+editing:
+  trigger_mode: blend
+  transparency: 0.0002
+  epochs: 15
+  learning_rate: 200.0
+  scale: 1.0
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/invisible_trigger

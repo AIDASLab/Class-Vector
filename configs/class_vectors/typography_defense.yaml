@@ -1,0 +1,11 @@
+extends: environment_adaptation.yaml
+task: typography_defense
+data:
+  root: ${CV_DATA_ROOT}/typography
+  support:
+    path: ${CV_DATA_ROOT}/typography/support.jsonl
+  evaluation:
+    path: ${CV_DATA_ROOT}/typography/test.jsonl
+editing:
+  scale: -1.5
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/typography_defense

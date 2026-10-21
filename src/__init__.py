@@ -1,0 +1,1 @@
+"""Class Vector application packages."""

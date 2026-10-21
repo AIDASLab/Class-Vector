@@ -1,0 +1,36 @@
+task: unlearning
+mode: latent
+seed: 42
+model:
+  name: ViT-B-16
+  pretrained: openai
+  pretrained_checkpoint: null
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/MNIST/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/head_MNIST.pt
+  cache_dir: ${OPENCLIP_CACHE_DIR}
+  device: cpu
+
+data:
+  name: MNIST
+  templates: ['a photo of the number: "{}".']
+  root: ${CV_DATA_ROOT}
+  split: train
+  batch_size: 64
+  num_workers: 0
+  evaluation:
+    split: test
+
+editing:
+  class_ids: [0, 1, 2, 3, 4]
+  recipe: unlearning
+  target_class: 0
+  target_classes: [0, 1, 2, 3, 4]
+  scale: -1.5
+  reference_count: 1
+  epochs: 15
+  learning_rate: 0.04
+  editable_parameter_patterns:
+    - "visual.ln_post.*"
+  cosine_threshold: 0.5
+
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/vit_b16

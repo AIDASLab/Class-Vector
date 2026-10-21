@@ -1,0 +1,8 @@
+extends: ../unlearning/vit_b16_mnist_latent.yaml
+vector_source: ../unlearning/vit_b16_mnist_latent.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/SVHN/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/head_SVHN.pt
+data:
+  name: SVHN
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/cross_task/vit_b16_mnist_to_svhn_latent

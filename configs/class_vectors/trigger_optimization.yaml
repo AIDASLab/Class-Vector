@@ -1,0 +1,34 @@
+extends: vit_b32_example.yaml
+task: trigger_optimization
+mode: pixels
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/GTSRB/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-32/head_GTSRB.pt
+data:
+  name: GTSRB
+  templates:
+    - 'a zoomed in photo of a "{}" traffic sign.'
+    - 'a centered photo of a "{}" traffic sign.'
+    - 'a close up photo of a "{}" traffic sign.'
+  batch_size: 32
+  mapping:
+    split: test
+    fraction: 0.1
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.1
+    partition: remainder
+editing:
+  target_classes: null
+  recipe: class_transfer
+  source_class: 0
+  destination_class: 1
+  scale: 1.5
+  trigger_mode: patch
+  patch_size: 20
+  transparency: 1.0
+  epochs: 100
+  reference_count: 1
+  learning_rate: 5.0
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/trigger_optimization

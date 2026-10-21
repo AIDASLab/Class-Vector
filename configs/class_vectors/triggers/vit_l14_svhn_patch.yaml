@@ -1,0 +1,12 @@
+extends: ../trigger_optimization.yaml
+model:
+  name: ViT-L-14
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-L-14/SVHN/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-L-14/head_SVHN.pt
+data:
+  name: SVHN
+  templates:
+    - 'a photo of the number: "{}".'
+editing:
+  learning_rate: 5
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/triggers/vit_l14_svhn_patch

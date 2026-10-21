@@ -1,0 +1,3 @@
+extends: vit_b32_resisc45_latent.yaml
+mode: weights
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_b32_resisc45_weights

@@ -1,0 +1,37 @@
+task: environment_adaptation
+mode: weights
+seed: 0
+model:
+  family: clip
+  name: ViT-B-16
+  pretrained: null
+  finetuned_pretrained: openai
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/head_ImageNet.pt
+  cache_dir: ${OPENCLIP_CACHE_DIR}
+  device: cpu
+data:
+  backend: jsonl
+  root: ${CV_DATA_ROOT}/snow
+  batch_size: 4
+  num_workers: 0
+  support:
+    path: ${CV_DATA_ROOT}/snow/support.jsonl
+    label_field: group
+  evaluation:
+    path: ${CV_DATA_ROOT}/snow/test.jsonl
+    label_field: label
+editing:
+  recipe: concept_removal
+  class_ids: [0, 1]
+  affected_class: 1
+  clean_class: 0
+  target_class: ${CV_TARGET_CLASS}
+  mapping_class: 1
+  gate_class: 1
+  scale: -1.0
+  reference_count: 1
+  epochs: 15
+  learning_rate: 0.0001
+  cosine_threshold: 0.5
+  editable_parameter_patterns: [visual.transformer.resblocks.11.mlp.*, visual.ln_post.*]
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/environment_adaptation

@@ -1,0 +1,7 @@
+extends: bert_unlearning.yaml
+model:
+  finetuned_pretrained: fabriceyhc/bert-base-uncased-dbpedia_14
+data:
+  name: dbpedia_14
+  text_field: content
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/bert_dbpedia

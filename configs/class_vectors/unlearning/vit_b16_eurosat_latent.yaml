@@ -1,0 +1,21 @@
+extends: ../vit_b16_example.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/EuroSAT/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-B-16/head_EuroSAT.pt
+data:
+  name: EuroSAT
+  templates:
+    - 'a centered satellite photo of {}.'
+    - 'a centered satellite photo of a {}.'
+    - 'a centered satellite photo of the {}.'
+  mapping:
+    split: test
+    fraction: 0.05
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.05
+    partition: remainder
+editing:
+  learning_rate: 0.05
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_b16_eurosat_latent

@@ -1,0 +1,36 @@
+extends: ../vit_l14_example.yaml
+model:
+  finetuned_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-L-14/RESISC45/finetuned.pt
+  head_checkpoint: ${CV_CHECKPOINT_ROOT}/ViT-L-14/head_RESISC45.pt
+data:
+  name: RESISC45
+  templates:
+    - 'satellite imagery of {}.'
+    - 'aerial imagery of {}.'
+    - 'satellite photo of {}.'
+    - 'aerial photo of {}.'
+    - 'satellite view of {}.'
+    - 'aerial view of {}.'
+    - 'satellite imagery of a {}.'
+    - 'aerial imagery of a {}.'
+    - 'satellite photo of a {}.'
+    - 'aerial photo of a {}.'
+    - 'satellite view of a {}.'
+    - 'aerial view of a {}.'
+    - 'satellite imagery of the {}.'
+    - 'aerial imagery of the {}.'
+    - 'satellite photo of the {}.'
+    - 'aerial photo of the {}.'
+    - 'satellite view of the {}.'
+    - 'aerial view of the {}.'
+  mapping:
+    split: test
+    fraction: 0.05
+    partition: selected
+  evaluation:
+    split: test
+    fraction: 0.05
+    partition: remainder
+editing:
+  learning_rate: 0.03
+output_dir: ${CV_OUTPUT_ROOT}/class_vectors/unlearning/vit_l14_resisc45_latent

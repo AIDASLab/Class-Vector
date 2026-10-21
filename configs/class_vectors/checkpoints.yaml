@@ -1,0 +1,33 @@
+clip_vit_l14:
+  model_name: ViT-L-14
+  pretrained: openai
+  input_size: 224
+  pretrained_url: https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt
+  pretrained_sha256: b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836
+  registry_source: https://github.com/openai/CLIP/blob/main/clip/clip.py
+  finetuned_source: https://github.com/mlfoundations/task_vectors#checkpoints
+  finetuned_download: https://drive.google.com/drive/folders/1u_Tva6x0p6oxu5Eo0ZZsf-520Cc_3MKw
+  datasets: [Cars, DTD, EuroSAT, GTSRB, MNIST, RESISC45, SUN397, SVHN]
+
+task_encoders:
+  ViT-B-16:
+    MNIST: 16ud_m6IW3B3ya-XubPJRPDfarIFy1TlI
+    GTSRB: 1qMMLMveglwgJHNNwI-1eFAVzz4WPilK9
+    DTD: 1gwydcjuxSlrhJESk8wR7kSswUZrsE_Oo
+    EuroSAT: 1VGLfWSKy_b-bAu5vILDnn7m-Fl67qIuY
+    RESISC45: 1amJrMuYti6viQAwTMRwa_i_vdP61tWFq
+    SVHN: 1tjln6Q671mMm4MAPWjNHAXzbUP16VbC9
+  ViT-B-32:
+    MNIST: 1IYE99VnUcKso2UOUYRfuts8MtrZ7IdqU
+    GTSRB: 1BDEpJSL0GWGfD93OvymW_oZZeWfyYclM
+    DTD: 1octqDdrX8vOSRfMWKHSBodPiC5OS4XBA
+    EuroSAT: 1EZIkpSox2tuXRDADFw2Ih9Rfown94BKU
+    RESISC45: 1Glu2Hky3qa58LJgtWhwDa50CLkCPdkuo
+    SVHN: 1_xM_tfAJPm_0YoonnaSn4rVeek2qrzk9
+  ViT-L-14:
+    MNIST: 10YRwnn_hd-seO2wwY8D0VqkH1pPLNTz_
+    GTSRB: 1YySaMgFMl60YinimCnqBd-lEkFQnXLRf
+    DTD: 1_jxmh_xPdz6vaRKpi381QZLPIMIdciCa
+    EuroSAT: 140waSSkRydxtgyHq3xw-MegshHUVyQKx
+    RESISC45: 1xCYXyHOqGENiKa-znsQQz_UlCCyLbgPD
+    SVHN: 1hlYqpa7Q6BeIgQJTf6ViWxcp3ENGFvbY
